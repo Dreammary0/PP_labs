@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import matplotlib
-matplotlib.use('TkAgg')  # Используем стандартный бэкенд TkAgg
 import pandas
 import platform
 import subprocess
@@ -74,8 +73,12 @@ if processor_info is not None:
     plt.tight_layout()  # Автоматически регулирует отступы
     plt.subplots_adjust(bottom=0.3)  # Увеличиваем место внизу для текста
 
+try:
+    # Показываем график
+    matplotlib.use('TkAgg')  # Используем стандартный бэкенд TkAgg
+    plt.show()
+except:
+    pass
 # Сохраняем график в файл
 plt.savefig("output_plot.png", dpi=300, bbox_inches='tight')  # Сохраняем с фиксированным размером и разрешением
 
-# Показываем график
-plt.show()
