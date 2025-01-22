@@ -33,10 +33,15 @@ length = data.shape[0]
 
 t = data[0:0 + length]["T"]
 duration = data[0:0 + length]["Duration"]
-ax.plot(t, [float(i) for i in duration], label="Время выполнения", c="blue")
+# Первое значение duration
+first_duration = data['Duration'].iloc[0]
+data['acceleration'] = (1 / data['Duration']) - (1 / first_duration)
+acceleration = data[0:0 + length]["acceleration"]
+
+ax.plot(t, [float(i) for i in acceleration], label="Ускорение", c="blue")
 
 ax.set_xlabel('Количество потоков')
-ax.set_ylabel('Время выполнения, мс')
+ax.set_ylabel('Ускорение')
 ax.set_xticks(t)
 ax.grid(True, axis='y', linestyle='--', alpha=0.7)
 ax.legend()

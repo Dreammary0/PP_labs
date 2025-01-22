@@ -34,13 +34,18 @@ length = data.shape[0]
 t = data[0:0 + length]["test"]
 scalar = data[0:0 + length]["scalar"]
 vector = data[0:0 + length]["vector"]
+data['acceleration_s'] = (1 / data['scalar']).diff().fillna(0)
+data['acceleration_v'] = (1 / data['vector']).diff().fillna(0)
+acceleration_s = data[0:0 + length]["acceleration_s"]
+acceleration_v = data[0:0 + length]["acceleration_v"]
 
-ax.plot(t, [float(i) for i in scalar], label="Время выполнения scalar", c="blue")
-ax.plot(t, [float(i) for i in vector], label="Время выполнения vector", c="red")
+
+ax.plot(t, [float(i) for i in acceleration_s], label="Ускорение acceleration_scalar", c="blue")
+ax.plot(t, [float(i) for i in acceleration_v], label="Ускорение acceleration_vector", c="red")
 
 
 ax.set_xlabel('Тесты')
-ax.set_ylabel('Время выполнения, мс')
+ax.set_ylabel('Ускорение')
 ax.set_xticks(t)
 ax.grid(True, axis='y', linestyle='--', alpha=0.7)
 ax.legend()
@@ -72,11 +77,13 @@ if processor_info is not None:
     plt.figtext(0.1, 0.02, processor_info, wrap=True, horizontalalignment='left', fontsize=8)
     plt.tight_layout()  # Автоматически регулирует отступы
     plt.subplots_adjust(bottom=0.3)  # Увеличиваем место внизу для текста
+
 try:
-    matplotlib.use('TkAgg')  # Используем стандартный бэкенд TkAgg
     # Показываем график
+    matplotlib.use('TkAgg')  # Используем стандартный бэкенд TkAgg
     plt.show()
 except:
     pass
 # Сохраняем график в файл
 plt.savefig("output_plot.png", dpi=300, bbox_inches='tight')  # Сохраняем с фиксированным размером и разрешением
+
