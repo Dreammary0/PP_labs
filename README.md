@@ -26,4 +26,4 @@ g++ -std=c++20 -fopenmp  main.cpp vector_mod.cpp randomize.cpp test.cpp num_thre
 
 g++ -std=c++20 -fopenmp main.cpp -o main 
   
-P.s. если процессор поддерживает, вместо -mavx указываем флаг -mavx512f
+* P.s. если процессор поддерживает, вместо -mavx указываем флаг -mavx512f
